@@ -1,0 +1,57 @@
+{% extends 'index.html' %}
+ {% block content %}
+ <br/>
+ <div id="add-div"></div>
+ <br/>
+
+ <h1 style="color :blueviolet">Lihasryhmät</h1>
+ <button id="add-btn" class="btn btn-success btn-sm" onclick="showaddform()">Lisää lihasryhmä</button>
+ <!-- FORM LÄHETTÄÄ URLIIN PYYNNÖN, ETTÄ SIINÄ MUKANA SERACH KENTÄN SISÄLTÖ -->
+ <!-- <form method="post" action="/search-suppliers/"> -->
+
+    <!-- {%csrf_token %}
+    <input class="card-text" class="card-text" type="text" placeholder="search" name="search">
+
+    <input type="submit" value="Search" class="btn btn-success btn-sm" name="">
+</form> -->
+
+ <!-- TÄHÄN CONTEXT TULOSTUU -->
+ {% for li in lihasryhmat %}
+ <div class = "card" style="max-width: 50rem;">
+    <div class="card-body">
+        <h4 class="card-title">{{li.lihasryhmanimi}}</h4>
+        
+        <a href="/edit-lihasryhma-get/{{s.id}}/" class="btn btn-primary">Edit</a>
+        <a href="/confirm-delete-lihasryhma/{{s.id}}/" class="btn btn-danger">Delete</a>
+        
+
+    </div>
+ </div>
+ {% endfor %}
+ <script>
+    let x = `
+    <h2 style="color: lightblue">Valitse lihasryhmä</h2>
+    <div class="card" style="width: 20rem;">
+        <div class="card-body">
+            <form method="post" action="/add-lihasryhma/"> 
+                {% csrf_token %}
+                <input class="card-text" class="card-text" type="text" placeholder="lihasryhmä" name="lihasryhmanimi">
+                
+                <br/>
+                <input type="submit" value="Confirm" class="btn btn-success btn-sm" name="">
+                <input type="submit" id="hide-btn" class="btn btn-secondary btn-sm" onclick="hideaddform()" value="Cancel" name="">
+            </form>
+        </div>
+    </div>
+    `
+    function showaddform()
+    {
+        document.getElementById("add-div").innerHTML = x
+    }
+    function hideaddform()
+    {
+        document.getElementById("add-div").innerHTML = ""
+    }
+ </script>
+ 
+ {% endblock %}
